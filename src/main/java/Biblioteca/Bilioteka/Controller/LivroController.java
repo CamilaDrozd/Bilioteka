@@ -1,10 +1,13 @@
 package Biblioteca.Bilioteka.Controller;
 
 import Biblioteca.Bilioteka.DTO.LivroDTO;
+import Biblioteca.Bilioteka.DTO.LivroDTOatualizar;
+import Biblioteca.Bilioteka.DTO.LivroDTOid;
 import Biblioteca.Bilioteka.DTO.LivroVendaDTO;
 import Biblioteca.Bilioteka.model.Livro;
 import Biblioteca.Bilioteka.Livro.LivroRepository;
 import Biblioteca.Bilioteka.service.BibliotecaService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,18 +31,15 @@ public class LivroController {
 
 
     @GetMapping("/livros")
-    public List<LivroDTO> listarLivrosDTO(){
+    public List<LivroDTOid> listarLivrosDTO(){
         return bibliotecaService.listarLivrosDTO();
        // return livroRepository.findAll();
     }
-
-
 
     @GetMapping("/livro/{id}")
     public LivroDTO buscarLivroID(@PathVariable(value = "id") Long id){
        return bibliotecaService.buscarIdDTO(id);
     }
-
 
 
     @GetMapping("/livroTitulo/{titulo}")
@@ -61,8 +61,6 @@ public class LivroController {
         return listaAutor;
     }
 
-
-
     @GetMapping("/livroGenero/{genero}")
     public List<LivroDTO> buscarGenero(@PathVariable(value = "genero") String genero){
         List<LivroDTO> listaGenero = bibliotecaService.buscarGenero(genero);
@@ -70,6 +68,14 @@ public class LivroController {
     }
 
 
+
+
+//    @PutMapping("/livro/{id}")
+//    @Transactional
+//    public LivroDTOatualizar atualizarLivro(@PathVariable Long id, @RequestBody LivroDTOatualizar livroDTOatualizar){
+//        //LivroDTOatualizar livroAtualiza = bibliotecaService.atualizarLivro(livroDTOatualizar);
+//        return bibliotecaService.atualizarLivro(livroDTOatualizar);
+//    }
 
 
 

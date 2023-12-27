@@ -1,5 +1,7 @@
 package Biblioteca.Bilioteka.service;
 
+import Biblioteca.Bilioteka.DTO.LivroDTOatualizar;
+import Biblioteca.Bilioteka.DTO.LivroDTOid;
 import Biblioteca.Bilioteka.DTO.LivroVendaDTO;
 import Biblioteca.Bilioteka.model.Livro;
 import Biblioteca.Bilioteka.Livro.LivroRepository;
@@ -24,23 +26,24 @@ public class BibliotecaService {
     }
 
 
-    public Livro cadastraLivro(LivroDTO livroDTO){
-        Livro livro = new Livro();
-        livro.setAutor(livroDTO.getAutor());
-        return livroRepository.save(livro);
-    }
+//    public Livro cadastraLivro(LivroDTO livroDTO){
+//        Livro livro = new Livro();
+//        livro.setAutor(livroDTO.getAutor());
+//        return livroRepository.save(livro);
+//    }
 
-    public List<LivroDTO> listarLivrosDTO() {
+    public List<LivroDTOid> listarLivrosDTO() {
         List<Livro> lista = livroRepository.findAll();
         //percorre lista
         //        para cada elemento da lista
         //          cria um livroDTO =>
-        List<LivroDTO> livrosListaDTO = new ArrayList<LivroDTO>();
+        List<LivroDTOid> livrosListaDTO = new ArrayList<LivroDTOid>();
         //Lista inicializado
         if (!lista.isEmpty()){
             for (Livro l: lista) {
-                LivroDTO livroDto = new LivroDTO();
+                LivroDTOid livroDto = new LivroDTOid();
                 //copia os dados necessarios para o DTO
+                livroDto.setId(l.getId());
                 livroDto.setTitulo(l.getTitulo());
                 livroDto.setAutor(l.getAutor());
                 livroDto.setEditora(l.getEditora());
@@ -154,4 +157,26 @@ public class BibliotecaService {
     }
 
 
+    public Livro atualizarLivro(LivroDTOatualizar livroDTOatualizar) {
+
+       Livro l = livroRepository.findById(livroDTOatualizar.getId()).orElse(null);
+
+       if (livroDTOatualizar.getTitulo() != null){
+           l.setTitulo(livroDTOatualizar.getTitulo());
+       }
+        if (livroDTOatualizar.getAutor() != null){
+            l.setAutor(livroDTOatualizar.getAutor());
+        }
+        if (livroDTOatualizar.getEditora() != null){
+            l.setEditora(livroDTOatualizar.getEditora());
+        }
+        if (livroDTOatualizar.getGenero() != null){
+            l.setGenero(livroDTOatualizar.getGenero());
+        }
+        if (livroDTOatualizar.getPreco() != null){
+            l.setPreco(livroDTOatualizar.getPreco());
+        }
+       livroRepository.save(l);
+        return l;
+    }
 }
