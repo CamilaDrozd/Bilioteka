@@ -3,7 +3,6 @@ package Biblioteca.Bilioteka.Controller;
 import Biblioteca.Bilioteka.DTO.LivroDTO;
 import Biblioteca.Bilioteka.DTO.LivroDTOatualizar;
 import Biblioteca.Bilioteka.DTO.LivroDTOid;
-import Biblioteca.Bilioteka.DTO.LivroVendaDTO;
 import Biblioteca.Bilioteka.model.Livro;
 import Biblioteca.Bilioteka.Livro.LivroRepository;
 import Biblioteca.Bilioteka.service.BibliotecaService;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping
@@ -70,12 +68,20 @@ public class LivroController {
 
 
 
-//    @PutMapping("/livro/{id}")
-//    @Transactional
-//    public LivroDTOatualizar atualizarLivro(@PathVariable Long id, @RequestBody LivroDTOatualizar livroDTOatualizar){
-//        //LivroDTOatualizar livroAtualiza = bibliotecaService.atualizarLivro(livroDTOatualizar);
-//        return bibliotecaService.atualizarLivro(livroDTOatualizar);
-//    }
+    @PutMapping("/livro/{id}")
+    @Transactional
+    public Livro atualizarLivro(@PathVariable Long id, @RequestBody LivroDTOatualizar livroDTOatualizar){
+        //LivroDTOatualizar livroAtualiza = bibliotecaService.atualizarLivro(livroDTOatualizar);
+        return bibliotecaService.atualizarLivro(livroDTOatualizar);
+    }
+
+
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void deletarLivro(@PathVariable Long id){
+        bibliotecaService.deletarLivro(id);
+    }
 
 
 

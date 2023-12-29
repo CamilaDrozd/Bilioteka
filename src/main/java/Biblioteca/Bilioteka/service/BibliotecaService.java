@@ -7,6 +7,7 @@ import Biblioteca.Bilioteka.model.Livro;
 import Biblioteca.Bilioteka.Livro.LivroRepository;
 import Biblioteca.Bilioteka.DTO.LivroDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -179,4 +180,12 @@ public class BibliotecaService {
        livroRepository.save(l);
         return l;
     }
+
+    public void deletarLivro(Long id){
+        if( !livroRepository.existsById(id)){
+            throw new RuntimeException("Id não encontrado");
+        }
+        livroRepository.deleteById(id);
+    }
+
 }
